@@ -210,9 +210,12 @@ mongo --port 27007 -u "admin" -p "123" --authenticationDatabase "admin"
 
 ############################ STEP 7 ##############################
 
+## 04 - mongo 4.4 Start Replica Set
 
+Edit the configuration file /etc/mongo.conf
 ```bash
-
+replication:
+  replSetName: "rs0"
 ```
 
 ```bash
