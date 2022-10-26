@@ -75,13 +75,113 @@ chage to mongo 3.6
  mongo --port 27007 --quiet --eval 'db.adminCommand( { setFeatureCompatibilityVersion: "3.6" } )'
 ```
 
+############################ STEP 4 ##############################
+
+## 01 - Upgrade 3.6 to 4.0
+Stop de mongod daemon, and edit the config file /etc/yum.repos.d/mongo.conf and change on BASEURL line de version 3.6 to 4.0
+
+
+## 02 - Upgrade 3.6 to 4.0
+Clean the repository cache, and update the mongo packages
 ```bash
+yum clean all
+yum repolist
+yum update mongo*
+systemctl daemon-reload
+systemctl start mongod
+```
+
+## 03 - Upgrade 3.6 to 4.0
+Verify de compability mode
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } )'
+```
+chage to mongo 3.6
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { setFeatureCompatibilityVersion: "3.6" } )'
+```
+
+
+############################ STEP 5 ##############################
+
+## 01 - Upgrade 4.0 to 4.2
+
+Stop de mongod daemon, and edit the config file /etc/yum.repos.d/mongo.conf and change on BASEURL line de version 4.0 to 4.2
+
+## 02 - Upgrade 4.2 to 4.2
+Verify de compability mode
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } )'
+```
+chage to mongo 4.0
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { setFeatureCompatibilityVersion: "4.2" } )'
 
 ```
 
-```bash
+## 03 - Upgrade 4.0 to 4.2
+backup the database: 
 
+backup the database with "mmapv1"  storage
+```bash
+ mongodump --port 27007 --out /backup
 ```
+
+
+## 04 - Upgrade 4.0 to 4.2
+Clean the repository cache, and update the mongo packages
+```bash
+yum clean all
+yum repolist
+yum update mongo*
+systemctl daemon-reload
+systemctl start mongod
+```
+
+## 05 - Upgrade 4.0 to 4.2
+enable wiredtiger storage mode  /etc/mongo.conf
+```bash
+  wiredTiger:
+    engineConfig:
+     cacheSizeGB: 12
+```
+
+############################ STEP 6 ##############################
+
+## 01 - Upgrade 4.2 to 4.4
+
+Stop de mongod daemon, and edit the config file /etc/yum.repos.d/mongo.conf and change on BASEURL line de version 4.2 to 4.4
+
+## 02 - Upgrade 4.2 to 4.4
+
+Verify de compability mode
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { getParameter: 1, featureCompatibilityVersion: 1 } )'
+```
+chage to mongo 4.2
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { setFeatureCompatibilityVersion: "4.2" } )'
+```
+
+## 03 - Upgrade 4.2 to 4.4
+
+Clean the repository cache, and update the mongo packages
+```bash
+yum clean all
+yum repolist
+yum update mongo*
+systemctl daemon-reload
+systemctl start mongod
+```
+
+## 04 - Upgrade 4.2 to 4.4
+chage to mongo 4.4
+```bash
+ mongo --port 27007 --quiet --eval 'db.adminCommand( { setFeatureCompatibilityVersion: "4.4" } )'
+```
+
+############################ STEP 7 ##############################
+
 
 ```bash
 
